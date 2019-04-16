@@ -1,28 +1,17 @@
 cmake_minimum_required(VERSION 3.00)
 #project name  
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/" ${CMAKE_MODULE_PATH})
 PROJECT(pcl_icp_test)
+find_package(JNI REQUIRED)
+find_package(PCL 1.8 REQUIRED)
 #head file path  
 INCLUDE_DIRECTORIES( 
-"C:/Program Files/PCL 1.8.1/include/pcl-1.8" 
-"C:/Program Files/PCL 1.8.1/3rdParty/VTK/include/vtk-8.0"
-"C:/Program Files/PCL 1.8.1/3rdParty/Qhull/include"
-"C:/Program Files/PCL 1.8.1/3rdParty/OpenNI2/Include"
-"C:/Program Files/PCL 1.8.1/3rdParty/FLANN/include"
-"C:/Program Files/PCL 1.8.1/3rdParty/Eigen/eigen3"
-"C:/Program Files/PCL 1.8.1/3rdParty/Boost/include/boost-1_64"
-"C:/Program Files/Java/jdk-10/include"
-"C:/Program Files/Java/jdk-10/include/win32"
+${JNI_INCLUDE_DIRS}
+${PCL_INCLUDE_DIRS}
 )
 SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 SET(CMAKE_CXX_FLAGS "-std=c++14")
-LINK_DIRECTORIES(
-"C:/Program Files/PCL 1.8.1/3rdParty/VTK/lib"
-"C:/Program Files/PCL 1.8.1/3rdParty/Qhull/lib"
-"C:/Program Files/PCL 1.8.1/3rdParty/OpenNI2/Lib"
-"C:/Program Files/PCL 1.8.1/3rdParty/FLANN/lib"
-"C:/Program Files/PCL 1.8.1/3rdParty/Boost/lib"
-"C:/Program Files/PCL 1.8.1/lib"
-) 
+LINK_DIRECTORIES(${PCL_LIBRARY_DIRS}) 
 SET(pcl_icp_ 
 "src/com_movlad_pcl_io_PointCloud3dReader.cpp"
 "src/com_movlad_pcl_io_PointCloud3dReader.h"
@@ -69,195 +58,8 @@ SET(pcl_icp_
 )
 
 #SET(CMAKE_BUILD_TYPE "Debug")  
-SET(CMAKE_BUILD_TYPE "Release") 
+#SET(CMAKE_BUILD_TYPE "Release") 
 remove_definitions(-DBOOST_NO_EXCEPTIONS) 
 
-ADD_LIBRARY(pcl_icp_test SHARED ${pcl_icp_})
-TARGET_LINK_LIBRARIES(pcl_icp_test 
-vtknetcdf_c++-gd
-pcl_common_debug
-pcl_features_debug
-pcl_filters_debug
-pcl_io_ply_debug
-pcl_io_debug
-pcl_kdtree_debug
-pcl_keypoints_debug
-pcl_ml_debug
-pcl_octree_debug
-pcl_outofcore_debug
-pcl_people_debug
-pcl_recognition_debug
-pcl_registration_debug
-pcl_sample_consensus_debug
-pcl_search_debug
-pcl_segmentation_debug
-pcl_stereo_debug
-pcl_surface_debug
-pcl_tracking_debug
-pcl_visualization_debug
-libboost_atomic-vc141-mt-gd-1_64
-libboost_bzip2-vc141-mt-gd-1_64
-libboost_chrono-vc141-mt-gd-1_64
-libboost_container-vc141-mt-gd-1_64
-libboost_context-vc141-mt-gd-1_64
-libboost_coroutine-vc141-mt-gd-1_64
-libboost_date_time-vc141-mt-gd-1_64
-libboost_exception-vc141-mt-gd-1_64
-libboost_fiber-vc141-mt-gd-1_64
-libboost_filesystem-vc141-mt-gd-1_64
-libboost_graph-vc141-mt-gd-1_64
-libboost_graph_parallel-vc141-mt-gd-1_64
-libboost_iostreams-vc141-mt-gd-1_64
-libboost_locale-vc141-mt-gd-1_64
-libboost_log-vc141-mt-gd-1_64
-libboost_log_setup-vc141-mt-gd-1_64
-libboost_math_c99-vc141-mt-gd-1_64
-libboost_math_c99f-vc141-mt-gd-1_64
-libboost_math_c99l-vc141-mt-gd-1_64
-libboost_math_tr1-vc141-mt-gd-1_64
-libboost_math_tr1f-vc141-mt-gd-1_64
-libboost_math_tr1l-vc141-mt-gd-1_64
-libboost_mpi-vc141-mt-gd-1_64
-libboost_numpy3-vc141-mt-gd-1_64
-libboost_numpy-vc141-mt-gd-1_64
-libboost_prg_exec_monitor-vc141-mt-gd-1_64
-libboost_program_options-vc141-mt-gd-1_64
-libboost_python3-vc141-mt-gd-1_64
-libboost_python-vc141-mt-gd-1_64
-libboost_random-vc141-mt-gd-1_64
-libboost_regex-vc141-mt-gd-1_64
-libboost_serialization-vc141-mt-gd-1_64
-libboost_signals-vc141-mt-gd-1_64
-libboost_system-vc141-mt-gd-1_64
-libboost_test_exec_monitor-vc141-mt-gd-1_64
-libboost_thread-vc141-mt-gd-1_64
-libboost_timer-vc141-mt-gd-1_64
-libboost_type_erasure-vc141-mt-gd-1_64
-libboost_unit_test_framework-vc141-mt-gd-1_64
-libboost_wave-vc141-mt-gd-1_64
-libboost_wserialization-vc141-mt-gd-1_64
-libboost_zlib-vc141-mt-gd-1_64
-flann-gd
-flann_cpp-gd
-flann_cpp_s-gd
-flann_s-gd
-qhull_d
-qhullcpp_d
-qhullstatic_d
-qhullstatic_r_d
-qhull_p_d
-qhull_r_d
-vtkalglib-8.0-gd
-vtkChartsCore-8.0-gd
-vtkCommonColor-8.0-gd
-vtkCommonComputationalGeometry-8.0-gd
-vtkCommonCore-8.0-gd
-vtkCommonDataModel-8.0-gd
-vtkCommonExecutionModel-8.0-gd
-vtkCommonMath-8.0-gd
-vtkCommonMisc-8.0-gd
-vtkCommonSystem-8.0-gd
-vtkCommonTransforms-8.0-gd
-vtkDICOMParser-8.0-gd
-vtkDomainsChemistry-8.0-gd
-vtkexoIIc-8.0-gd
-vtkexpat-8.0-gd
-vtkFiltersAMR-8.0-gd
-vtkFiltersCore-8.0-gd
-vtkFiltersExtraction-8.0-gd
-vtkFiltersFlowPaths-8.0-gd
-vtkFiltersGeneral-8.0-gd
-vtkFiltersGeneric-8.0-gd
-vtkFiltersGeometry-8.0-gd
-vtkFiltersHybrid-8.0-gd
-vtkFiltersHyperTree-8.0-gd
-vtkFiltersImaging-8.0-gd
-vtkFiltersModeling-8.0-gd
-vtkFiltersParallel-8.0-gd
-vtkFiltersParallelImaging-8.0-gd
-vtkFiltersPoints-8.0-gd
-vtkFiltersProgrammable-8.0-gd
-vtkFiltersSelection-8.0-gd
-vtkFiltersSMP-8.0-gd
-vtkFiltersSources-8.0-gd
-vtkFiltersStatistics-8.0-gd
-vtkFiltersTexture-8.0-gd
-vtkFiltersTopology-8.0-gd
-vtkFiltersVerdict-8.0-gd
-vtkfreetype-8.0-gd
-vtkGeovisCore-8.0-gd
-vtkgl2ps-8.0-gd
-vtkhdf5-8.0-gd
-vtkhdf5_hl-8.0-gd
-vtkImagingColor-8.0-gd
-vtkImagingCore-8.0-gd
-vtkImagingFourier-8.0-gd
-vtkImagingGeneral-8.0-gd
-vtkImagingHybrid-8.0-gd
-vtkImagingMath-8.0-gd
-vtkImagingMorphological-8.0-gd
-vtkImagingSources-8.0-gd
-vtkImagingStatistics-8.0-gd
-vtkImagingStencil-8.0-gd
-vtkInfovisCore-8.0-gd
-vtkInfovisLayout-8.0-gd
-vtkInteractionImage-8.0-gd
-vtkInteractionStyle-8.0-gd
-vtkInteractionWidgets-8.0-gd
-vtkIOAMR-8.0-gd
-vtkIOCore-8.0-gd
-vtkIOEnSight-8.0-gd
-vtkIOExodus-8.0-gd
-vtkIOExport-8.0-gd
-vtkIOExportOpenGL-8.0-gd
-vtkIOGeometry-8.0-gd
-vtkIOImage-8.0-gd
-vtkIOImport-8.0-gd
-vtkIOInfovis-8.0-gd
-vtkIOLegacy-8.0-gd
-vtkIOLSDyna-8.0-gd
-vtkIOMINC-8.0-gd
-vtkIOMovie-8.0-gd
-vtkIONetCDF-8.0-gd
-vtkIOParallel-8.0-gd
-vtkIOParallelXML-8.0-gd
-vtkIOPLY-8.0-gd
-vtkIOSQL-8.0-gd
-vtkIOTecplotTable-8.0-gd
-vtkIOVideo-8.0-gd
-vtkIOXML-8.0-gd
-vtkIOXMLParser-8.0-gd
-vtkjpeg-8.0-gd
-vtkjsoncpp-8.0-gd
-vtklibharu-8.0-gd
-vtklibxml2-8.0-gd
-vtklz4-8.0-gd
-vtkmetaio-8.0-gd
-vtkNetCDF-8.0-gd
-vtkoggtheora-8.0-gd
-vtkParallelCore-8.0-gd
-vtkpng-8.0-gd
-vtkproj4-8.0-gd
-vtkRenderingAnnotation-8.0-gd
-vtkRenderingContext2D-8.0-gd
-vtkRenderingContextOpenGL-8.0-gd
-vtkRenderingCore-8.0-gd
-vtkRenderingFreeType-8.0-gd
-vtkRenderingGL2PS-8.0-gd
-vtkRenderingImage-8.0-gd
-vtkRenderingLabel-8.0-gd
-vtkRenderingLIC-8.0-gd
-vtkRenderingLOD-8.0-gd
-vtkRenderingOpenGL-8.0-gd
-vtkRenderingVolume-8.0-gd
-vtkRenderingVolumeOpenGL-8.0-gd
-vtksqlite-8.0-gd
-vtksys-8.0-gd
-vtktiff-8.0-gd
-vtkverdict-8.0-gd
-vtkViewsContext2D-8.0-gd
-vtkViewsCore-8.0-gd
-vtkViewsInfovis-8.0-gd
-vtkzlib-8.0-gd
-opengl32
-)
+ADD_LIBRARY(pcl_icp_test SHARED ${pcl_icp_test})
+TARGET_LINK_LIBRARIES( ${PCL_LIBRARIES})
